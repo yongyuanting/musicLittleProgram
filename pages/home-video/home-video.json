@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "video-item":"/components/video_item/video_item"
+  },
+  "navigationBarTitleText": "推荐视频",
+  "enablePullDownRefresh": true
+}
