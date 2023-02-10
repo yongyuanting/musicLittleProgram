@@ -1,66 +1,58 @@
 // pages/home-music/main-music.js
+import {
+  querySelect
+} from '../../utils/querySelecor'
+import {
+  getMusicBanner
+} from "../../services/music"
+import {
+  throttle
+} from 'underscore'
+
+const querySelectThrottle = throttle(querySelect, 100, {
+  trailing: false
+})
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    searchValue: "",
+    banners: [],
+    bannerHeight: 150
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+  // 监听点击搜索框
+  onClickInput() {
+    wx.navigateTo({
+      url: '/pages/detail-search/detail-search',
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
+  onLoad() {
+    this.fetchMusicBanner()
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
+  async fetchMusicBanner() {
+    const res = await getMusicBanner()
+    this.setData({
+      banners: res.banners
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
+  imagesStandBy(event) {
+    // console.log(event)
+    // 获取image组件的高度
+    // const query = wx.createSelectorQuery()
+    // query.select(".banner-image").boundingClientRect()
+    // query.exec((res)=>{
+    //   // console.log("看看矩形框",res)
+    //   this.setData({
+    //     bannerHeight:res[0].height
+    //   })
+    // })
+    querySelectThrottle('.banner-image').then(res => {
+      this.setData({
+        bannerHeight: res[0].height
+      })
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  onRecommendMoreClick(){
+    console.log("点了推荐歌曲")
   }
 })

@@ -1,0 +1,24 @@
+{
+  "name": "musicLittleProgram",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yongyuanting/musicLittleProgram.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yongyuanting/musicLittleProgram/issues"
+  },
+  "homepage": "https://github.com/yongyuanting/musicLittleProgram#readme",
+  "dependencies": {
+    "@vant/weapp": "^1.10.12",
+    "underscore": "^1.13.6"
+  }
+}

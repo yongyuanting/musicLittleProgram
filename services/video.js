@@ -18,3 +18,22 @@ export function getMVUrl(id){
     }
   })
 }
+// 请求MV下方数据
+export function getMVInfo(mvid){
+  return yytRequest.get({
+    url:'mv/detail',
+    data:{
+      mvid
+    }
+  })
+}
+
+// 请求MV下方关联数据
+export function getMVRelate(id){
+  return yytRequest.get({
+    url:'related/allvideo',
+    data:{
+      id
+    }
+  })
+}
