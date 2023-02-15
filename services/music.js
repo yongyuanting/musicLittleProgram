@@ -11,3 +11,12 @@ export function getMusicBanner(type = 0) {
     }
   })
 }
+// 获取热歌榜
+export function getMusicPlayListDetail(id){
+  return yytRequest.get({
+    url:'playlist/detail',
+    data:{
+      id
+    }
+  })
+}

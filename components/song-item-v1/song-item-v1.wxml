@@ -1,0 +1,15 @@
+<!--components/song-item-v1/song-item-v1.wxml-->
+<view class="song-item">
+  <image class="image" src="{{itemData.al.picUrl}}" mode="" />
+  <view class="content">
+    <view class="name">
+      {{itemData.name}}
+    </view>
+    <view class="source">
+      {{itemData.ar[0].name}}
+    </view>
+    <view class="arrow" style="float: right;">
+      <van-icon name="arrow" color="#999" size="30px"></van-icon>
+    </view>
+  </view>
+</view>

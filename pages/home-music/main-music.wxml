@@ -12,4 +12,9 @@
 <!-- 推荐歌曲 -->
 <view class="recommend">
   <area-header title="推荐歌曲"  bind:moreClick='onRecommendMoreClick'></area-header>
+  <view class="list">
+    <block wx:for="{{recommendSongs}}" wx:key="id">
+      <song-item itemData="{{item}}"></song-item>
+    </block>
+  </view>
 </view>

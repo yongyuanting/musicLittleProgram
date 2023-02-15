@@ -3,12 +3,12 @@ import {
   querySelect
 } from '../../utils/querySelecor'
 import {
-  getMusicBanner
+  getMusicBanner,getMusicPlayListDetail
 } from "../../services/music"
 import {
   throttle
 } from 'underscore'
-
+import recommendStore from "../../store/recommendStore"
 const querySelectThrottle = throttle(querySelect, 100, {
   trailing: false
 })
@@ -18,7 +18,8 @@ Page({
   data: {
     searchValue: "",
     banners: [],
-    bannerHeight: 150
+    bannerHeight: 150,
+    recommendSongs:[]
   },
   // 监听点击搜索框
   onClickInput() {
@@ -28,6 +29,12 @@ Page({
   },
   onLoad() {
     this.fetchMusicBanner()
+    // this.fetchRecommendSongs()
+    // 发起action
+    recommendStore.dispatch("fetchRecommendSongsAction")
+    recommendStore.onState("recommendSongs",(value)=>{
+      this.setData({recommendSongs:value.slice(0,6)})
+    })
   },
   async fetchMusicBanner() {
     const res = await getMusicBanner()
@@ -52,7 +59,15 @@ Page({
       })
     })
   },
+  // async fetchRecommendSongs(){
+  //   const res = await getMusicPlayListDetail(3778678)
+  //   console.log(res)
+  //   this.setData({recommendSongs:res.playlist.tracks.slice(0,6)})
+  // },
   onRecommendMoreClick(){
-    console.log("点了推荐歌曲")
+    // console.log("点了推荐歌曲")
+    wx.navigateTo({
+      url: '/pages/detail-song/detail-song',
+    })
   }
 })

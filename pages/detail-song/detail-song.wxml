@@ -1,0 +1,4 @@
+<!--pages/detail-song/detail-song.wxml-->
+<view>
+  {{songs[0].name}}
+</view>

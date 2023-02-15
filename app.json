@@ -3,7 +3,8 @@
     "pages/home-music/main-music",
     "pages/home-video/home-video",
     "pages/detail_video/detail_video",
-    "pages/detail-search/detail-search"
+    "pages/detail-search/detail-search",
+    "pages/detail-song/detail-song"
   ],
   "window": {
     "backgroundTextStyle": "dark",
