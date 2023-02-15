@@ -3,7 +3,9 @@ import {
   querySelect
 } from '../../utils/querySelecor'
 import {
-  getMusicBanner,getMusicPlayListDetail
+  getMusicBanner,
+  getMusicPlayListDetail,
+  getSongMenuList
 } from "../../services/music"
 import {
   throttle
@@ -19,7 +21,9 @@ Page({
     searchValue: "",
     banners: [],
     bannerHeight: 150,
-    recommendSongs:[]
+    recommendSongs: [],
+    // 热门歌单数据
+    hotMenuList: []
   },
   // 监听点击搜索框
   onClickInput() {
@@ -31,10 +35,13 @@ Page({
     this.fetchMusicBanner()
     // this.fetchRecommendSongs()
     // 发起action
-    recommendStore.dispatch("fetchRecommendSongsAction")
-    recommendStore.onState("recommendSongs",(value)=>{
-      this.setData({recommendSongs:value.slice(0,6)})
+    recommendStore.onState("recommendSongs", (value) => {
+      this.setData({
+        recommendSongs: value.slice(0, 6)
+      })
+      recommendStore.dispatch("fetchRecommendSongsAction")
     })
+    this.fetchHotSongMenuList()
   },
   async fetchMusicBanner() {
     const res = await getMusicBanner()
@@ -64,10 +71,19 @@ Page({
   //   console.log(res)
   //   this.setData({recommendSongs:res.playlist.tracks.slice(0,6)})
   // },
-  onRecommendMoreClick(){
+  onRecommendMoreClick() {
     // console.log("点了推荐歌曲")
     wx.navigateTo({
       url: '/pages/detail-song/detail-song',
+    })
+  },
+  async fetchHotSongMenuList() {
+    // const res = await getSongMenuList()
+    // console.log(res)
+    getSongMenuList().then(res => {
+      this.setData({
+        hotMenuList: res.playlists
+      })
     })
   }
 })

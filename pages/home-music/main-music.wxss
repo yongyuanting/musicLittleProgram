@@ -1,19 +1,32 @@
 /* pages/home-music/main-music.wxss */
-page{
-  --search-background-color:#fff;
-  --search-padding:10 0;
+page {
+  --search-background-color: #fff;
+  --search-padding: 10 0;
 
   box-sizing: border-box;
-  padding:0 24rpx;
+  padding: 0 24rpx;
   background-color: #fafafa;
 }
 
-.banner{
+.banner {
   border-radius: 12rpx;
   overflow: hidden;
   /* height: 260rpx; */
 }
 
-.banner .item .banner-image{
+.banner .item .banner-image {
   width: 100%;
+}
+
+/* 歌单样式 */
+.scroll-list {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  height: 350rpx;
+}
+
+.scroll-list .item {
+  width: 220rpx;
 }
