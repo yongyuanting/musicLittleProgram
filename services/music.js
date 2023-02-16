@@ -31,3 +31,9 @@ export function getSongMenuList(cat = "全部", limit = 6, offset = 0) {
     }
   })
 }
+// 获取歌单分类
+export function getSongMenuTag(){
+  return yytRequest.get({
+    url:"playlist/hot"
+  })
+}

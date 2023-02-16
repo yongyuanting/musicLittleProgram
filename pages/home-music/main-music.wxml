@@ -10,22 +10,31 @@
   </block>
 </swiper>
 <!-- 推荐歌曲 -->
-<!-- <view class="recommend">
+<view class="recommend">
   <area-header title="推荐歌曲" bind:moreClick='onRecommendMoreClick'></area-header>
   <view class="list">
     <block wx:for="{{recommendSongs}}" wx:key="id">
       <song-item itemData="{{item}}"></song-item>
     </block>
   </view>
-</view> -->
+</view>
 <!-- 热门歌单 -->
-<view class="hot-menu">
+<!-- <view class="hot-menu">
   <area-header title='热门歌单'></area-header>
-  <scroll-view class="scroll-list" scroll-x>
+  <scroll-view class="scroll-list" scroll-x="true" style="width: {{screenWidth}}px;">
     <block wx:for="{{hotMenuList}}" wx:key="id">
       <view class="item">
         <menu-item itemData="{{item}}"></menu-item>
       </view>
     </block>
   </scroll-view>
+</view> -->
+
+<menu-area title="热门歌单" menuList="{{hotMenuList}}"></menu-area>
+<menu-area title='推荐歌单' menuList="{{recommendMenuList}}"></menu-area>
+
+
+<!-- 巅峰榜 -->
+<view class="ranking">
+  <area-header title="巅峰榜" hasMore="{{false}}"></area-header>
 </view>

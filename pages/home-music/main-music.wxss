@@ -20,13 +20,16 @@ page {
 
 /* 歌单样式 */
 .scroll-list {
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  justify-content: flex-start;
-  height: 350rpx;
+  margin-left: -24rpx;
+  overflow:hidden;
+  white-space:nowrap;
 }
 
 .scroll-list .item {
+  display: inline-block;
+  margin-left: 24rpx;
   width: 220rpx;
+}
+.scroll-list .item:last-of-type{
+  margin-right: 24rpx;
 }

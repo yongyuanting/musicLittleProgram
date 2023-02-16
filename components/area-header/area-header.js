@@ -15,7 +15,10 @@ Component({
   },
   methods: {
     onMoreTap(){
-      this.triggerEvent("moreClick")
+      // this.triggerEvent("moreClick")
+      wx.navigateTo({
+        url: '/pages/detail-menu/detail-menu',
+      })
     }
   }
 })

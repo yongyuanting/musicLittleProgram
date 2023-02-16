@@ -25,8 +25,17 @@
   background-color: rgba(0, 0, 0, .5);
 }
 
-.item .bottom {
+.menu-item .bottom {
   width: 100%;
   font-size: 26rpx;
   /* 显示两行 */
+  
+  text-overflow:ellipsis;
+  display: -webkit-box;
+  /* word-break: break-all; */
+  /* word-wrap: break-word; */
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp:2;
+  overflow: hidden;
 }

@@ -14,6 +14,7 @@ import recommendStore from "../../store/recommendStore"
 const querySelectThrottle = throttle(querySelect, 100, {
   trailing: false
 })
+const app = getApp()
 
 Page({
 
@@ -23,7 +24,10 @@ Page({
     bannerHeight: 150,
     recommendSongs: [],
     // 热门歌单数据
-    hotMenuList: []
+    hotMenuList: [],
+    // 屏幕宽度
+    screenWidth: 750,
+    recommendMenuList:[]
   },
   // 监听点击搜索框
   onClickInput() {
@@ -42,6 +46,10 @@ Page({
       recommendStore.dispatch("fetchRecommendSongsAction")
     })
     this.fetchHotSongMenuList()
+    //  获取屏幕尺寸
+    this.setData({
+      screenWidth: app.globalData.screenWidth
+    })
   },
   async fetchMusicBanner() {
     const res = await getMusicBanner()
@@ -85,5 +93,8 @@ Page({
         hotMenuList: res.playlists
       })
     })
-  }
+    getSongMenuList("华语").then(res=>{
+      this.setData({recommendMenuList:res.playlists})
+    })
+  },
 })
