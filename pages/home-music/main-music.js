@@ -10,6 +10,7 @@ import {
 import {
   throttle
 } from 'underscore'
+import rankingStore from "../../store/rankingStore"
 import recommendStore from "../../store/recommendStore"
 const querySelectThrottle = throttle(querySelect, 100, {
   trailing: false
@@ -27,7 +28,11 @@ Page({
     hotMenuList: [],
     // 屏幕宽度
     screenWidth: 750,
-    recommendMenuList:[]
+    recommendMenuList: [],
+    // 巅峰榜数据
+    rankingInfo: {
+
+    }
   },
   // 监听点击搜索框
   onClickInput() {
@@ -39,12 +44,14 @@ Page({
     this.fetchMusicBanner()
     // this.fetchRecommendSongs()
     // 发起action
-    recommendStore.onState("recommendSongs", (value) => {
-      this.setData({
-        recommendSongs: value.slice(0, 6)
-      })
-      recommendStore.dispatch("fetchRecommendSongsAction")
-    })
+    recommendStore.onState("recommendSongs", this.handleRrcommendSong)
+
+    recommendStore.dispatch("fetchRecommendSongsAction")
+    rankingStore.onState("newRanking", this.handleNewRanking)
+    rankingStore.onState("originRanking", this.handleOriginRanking)
+    rankingStore.onState("upRanking", this.handleUpRanking)
+    rankingStore.dispatch("fetchRankingDataAction")
+
     this.fetchHotSongMenuList()
     //  获取屏幕尺寸
     this.setData({
@@ -93,8 +100,52 @@ Page({
         hotMenuList: res.playlists
       })
     })
-    getSongMenuList("华语").then(res=>{
-      this.setData({recommendMenuList:res.playlists})
+    getSongMenuList("华语").then(res => {
+      this.setData({
+        recommendMenuList: res.playlists
+      })
     })
   },
+  // =================从store中获取数据======================
+  handleRrcommendSong(value) {
+    this.setData({
+      recommendSongs: value.slice(0, 6)
+    })
+  },
+  handleNewRanking(value) {
+    console.log('新歌帮', value)
+    const newRankingInfos = {
+      ...this.data.rankingInfo,
+      newRanking: value
+    }
+    this.setData({
+      rankingInfo: newRankingInfos
+    })
+  },
+  handleOriginRanking(value) {
+    const originRanking = {
+      ...this.data.rankingInfo,
+      originRanking: value
+    }
+    this.setData({
+      rankingInfo: originRanking
+    })
+    console.log('原创帮', value)
+  },
+  handleUpRanking(value) {
+    const upRanking = {
+      ...this.data.rankingInfo,
+      upRanking: value
+    }
+    this.setData({
+      rankingInfo: upRanking
+    })
+    console.log('飙升帮', value)
+  },
+
+
+  onUnload() {
+    recommendStore.offState("recommendSongs", this.handleRrcommendSong)
+  }
+
 })
