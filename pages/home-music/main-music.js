@@ -22,7 +22,7 @@ Page({
   data: {
     searchValue: "",
     banners: [],
-    bannerHeight: 150,
+    bannerHeight: 0,
     recommendSongs: [],
     // 热门歌单数据
     hotMenuList: [],
@@ -30,9 +30,8 @@ Page({
     screenWidth: 750,
     recommendMenuList: [],
     // 巅峰榜数据
-    rankingInfo: {
-
-    }
+    rankingInfo: {},
+    isRankingData: false
   },
   // 监听点击搜索框
   onClickInput() {
@@ -44,7 +43,7 @@ Page({
     this.fetchMusicBanner()
     // this.fetchRecommendSongs()
     // 发起action
-    recommendStore.onState("recommendSongs", this.handleRrcommendSong)
+    recommendStore.onState("recommendSongInfo", this.handleRrcommendSong)
 
     recommendStore.dispatch("fetchRecommendSongsAction")
     rankingStore.onState("newRanking", this.handleNewRanking)
@@ -89,7 +88,7 @@ Page({
   onRecommendMoreClick() {
     // console.log("点了推荐歌曲")
     wx.navigateTo({
-      url: '/pages/detail-song/detail-song',
+      url: '/pages/detail-song/detail-song?type=recommend',
     })
   },
   async fetchHotSongMenuList() {
@@ -108,21 +107,33 @@ Page({
   },
   // =================从store中获取数据======================
   handleRrcommendSong(value) {
-    this.setData({
-      recommendSongs: value.slice(0, 6)
-    })
+    if (value.tracks && value.tracks.length) {
+      this.setData({
+        recommendSongs: value.tracks.slice(0, 6)
+      })
+    }
   },
   handleNewRanking(value) {
-    console.log('新歌帮', value)
+    // console.log('新歌帮', value)
+    if (!value.name) return
+    this.setData({
+      isRankingData: true
+    })
+
     const newRankingInfos = {
       ...this.data.rankingInfo,
-      newRanking: value
+      newRanking: value,
     }
     this.setData({
       rankingInfo: newRankingInfos
     })
   },
   handleOriginRanking(value) {
+    if (!value.name) return
+    this.setData({
+      isRankingData: true
+    })
+
     const originRanking = {
       ...this.data.rankingInfo,
       originRanking: value
@@ -130,9 +141,13 @@ Page({
     this.setData({
       rankingInfo: originRanking
     })
-    console.log('原创帮', value)
+    // console.log('原创帮', value)
   },
   handleUpRanking(value) {
+    if (!value.name) return
+    this.setData({
+      isRankingData: true
+    })
     const upRanking = {
       ...this.data.rankingInfo,
       upRanking: value
@@ -140,7 +155,7 @@ Page({
     this.setData({
       rankingInfo: upRanking
     })
-    console.log('飙升帮', value)
+    // console.log('飙升帮', value)
   },
 
 

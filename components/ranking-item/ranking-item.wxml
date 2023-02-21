@@ -2,7 +2,7 @@
 
 <wxs src="/utils/formate.wxs" module="fmt" />
 
-<view class="ranking-item">
+<view class="ranking-item" bindtap="onRankingItemTap">
   <view class="content">
     <view class="name">
       {{itemData.name}}

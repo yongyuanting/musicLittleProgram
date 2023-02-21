@@ -1,5 +1,5 @@
 <!--components/menu-area/menu-area.wxml-->
-<view class="hot-menu">
+<view class="hot-menu" wx:if="{{menuList && menuList.length}}">
   <area-header title='{{title}}' bind:moreClick="onMenuMoreClick"></area-header>
   <scroll-view class="scroll-list" scroll-x="true" style="width: {{screenWidth}}px;">
     <block wx:for="{{menuList}}" wx:key="id">

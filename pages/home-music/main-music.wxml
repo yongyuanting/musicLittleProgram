@@ -2,7 +2,7 @@
 <!-- 搜索框 -->
 <van-search value="{{ searchValue }}" shape="round" placeholder="请输入搜索关键词" bind:click-input='onClickInput' />
 <!-- 轮播图 -->
-<swiper class="banner" circular indicator-dots style="height: {{bannerHeight}}px;">
+<swiper wx:if="{{banners && banners.length}}" class="banner" circular indicator-dots style="height: {{bannerHeight}}px;">
   <block wx:for="{{banners}}" wx:key="targetId">
     <swiper-item class="item">
       <image bindload="imagesStandBy" class="banner-image" src="{{item.imageUrl}}" mode="widthFix" />
@@ -10,7 +10,7 @@
   </block>
 </swiper>
 <!-- 推荐歌曲 -->
-<view class="recommend">
+<view class="recommend" wx:if="{{recommendSongs && recommendSongs.length}}">
   <area-header title="推荐歌曲" bind:moreClick='onRecommendMoreClick'></area-header>
   <view class="list">
     <block wx:for="{{recommendSongs}}" wx:key="id">
@@ -35,11 +35,11 @@
 
 
 <!-- 巅峰榜 -->
-<view class="ranking">
+<view class="ranking" wx:if="{{isRankingData}}">
   <area-header title="巅峰榜" hasMore="{{false}}"></area-header>
   <view class="ranking-list">
     <block wx:for="{{rankingInfo}}" wx:key="id">
-      <ranking-item itemData="{{item}}"></ranking-item>
+      <ranking-item itemData="{{item}}" key="{{index}}"></ranking-item>
     </block>
   </view>
 </view>

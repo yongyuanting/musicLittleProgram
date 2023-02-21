@@ -4,21 +4,21 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    title:{
-      type:String,
-      value:'默认标题'
+    title: {
+      type: String,
+      value: '默认标题'
     },
-    hasMore:{
-      type:Boolean,
-      value:true
+    hasMore: {
+      type: Boolean,
+      value: true
     }
   },
   methods: {
-    onMoreTap(){
-      // this.triggerEvent("moreClick")
-      wx.navigateTo({
-        url: '/pages/detail-menu/detail-menu',
-      })
+    onMoreTap() {
+      this.triggerEvent("moreClick")
+      // wx.navigateTo({
+      //   url: '/pages/detail-menu/detail-menu',
+      // })
     }
   }
 })

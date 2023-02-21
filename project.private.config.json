@@ -28,6 +28,20 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "巅峰详情",
+          "pathName": "pages/detail-song/detail-song",
+          "query": "type=ranking&key=newRanking",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "歌单详情",
+          "pathName": "pages/detail-song/detail-song",
+          "query": "type=menu&id=469610350",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
