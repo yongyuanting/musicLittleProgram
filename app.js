@@ -1,15 +1,17 @@
 // app.js
 App({
-  globalData:{
-    screenWidth:375,
-    screenHeight:667
+  globalData: {
+    screenWidth: 375,
+    screenHeight: 667,
+    statusHeight: 20
   },
-  onLaunch(){
+  onLaunch() {
     // 获取设备信息
     wx.getSystemInfo({
-      success:(res)=>{
-        this.globalData.screenWidth=res.screenWidth
+      success: (res) => {
+        this.globalData.screenWidth = res.screenWidth
         this.globalData.screenHeight = res.screenHeight
+        this.globalData.statusHeight = res.statusBarHeight
       }
     })
   }

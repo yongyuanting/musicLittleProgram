@@ -13,18 +13,14 @@ Component({
       default: -1
     }
   },
-
-  /**
-   * 组件的初始数据
-   */
-  data: {
-
-  },
-
-  /**
-   * 组件的方法列表
-   */
+  behaviors: [],
   methods: {
-
+    onSongItemClick() {
+      const id = this.properties.itemData.id
+      console.log(id)
+      wx.navigateTo({
+        url: `/pages/music-player/music-player?id=${id}`,
+      })
+    }
   }
 })
