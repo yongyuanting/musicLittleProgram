@@ -4,15 +4,16 @@
   <view class="status" style="height:{{statusHeight}}px"></view>
   <view class="nav">
     <view class="left">
-      <view class="left-default">
-        <van-icon name="arrow-left" />
-      </view>
       <view class="left-slot">
+        <slot name="left"></slot>
+      </view>
+      <view class="left-default">
+        <van-icon class="icon" size="20px" name="arrow-left" />
       </view>
     </view>
     <view class="center">
       <view class="center-slot">
-        <slot></slot>
+        <slot name="center"></slot>
       </view>
       <view class="center-default">
         {{title}}

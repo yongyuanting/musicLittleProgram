@@ -9,7 +9,94 @@
   z-index: -2;
 }
 
+.active {
+  color: #fff;
+}
+
 .cover {
   background-color: rgba(0, 0, 0, .3);
   backdrop-filter: blur(13px);
+}
+
+/* 导航中的center */
+.tabs {
+  display: flex;
+  font-size: 28rpx;
+  color: #999;
+}
+
+.tabs .divider {
+  margin: 0 8rpx;
+}
+
+/* 歌曲布局 */
+.music-content {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  box-sizing: border-box;
+  padding: 40rpx 60rpx;
+  font-size: 28rpx;
+}
+
+.music-content .album {
+  flex: 1;
+}
+
+.music-content .album .music-image {
+  width: 100%;
+  border: 12rpx;
+}
+
+.music-content .info .music-name {
+  font-size: 48rpx;
+  font-weight: 700;
+}
+
+.music-content .info .music-singer {
+  margin-top: 10rpx;
+}
+
+.music-content .lyric {
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 16rpx 0;
+}
+
+.music-content .proress .time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24rpx;
+}
+
+.music-content .proress {
+  margin: 12rpx 0;
+}
+
+.music-content .proress .slider {
+  margin: 16rpx 8rpx 10rpx 18rpx;
+}
+
+.music-content .control .btn {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.music-content .control .mode {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.music-content .control .play {
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.music-content .control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 12rpx 0;
 }

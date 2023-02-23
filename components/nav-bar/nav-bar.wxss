@@ -18,6 +18,21 @@
   color: #fff;
 }
 
+
+
+.left-default .icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.left-default {
+  display: none;
+}
+
+.left-slot:empty+.left-default {
+  display: block;
+}
+
 .nav .left,
 .nav .right {
   width: 120rpx;

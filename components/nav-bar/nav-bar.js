@@ -4,6 +4,9 @@ const app = getApp()
 
 
 Component({
+  options: {
+    multipleSlots: true
+  },
   data: {
     statusHeight: 20,
     title: "导航标题"
