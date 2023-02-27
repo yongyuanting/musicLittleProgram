@@ -11,6 +11,7 @@ import {
   throttle
 } from 'underscore'
 import rankingStore from "../../store/rankingStore"
+import playerStore from "../../store/playerListStore"
 import recommendStore from "../../store/recommendStore"
 const querySelectThrottle = throttle(querySelect, 100, {
   trailing: false
@@ -161,6 +162,10 @@ Page({
 
   onUnload() {
     recommendStore.offState("recommendSongs", this.handleRrcommendSong)
+  },
+  onSongItemTap() {
+    // console.log("获取歌曲列表", this.data.recommendSongs)
+    playerStore.setState("playSongList", this.data.recommendSongs)
   }
 
 })

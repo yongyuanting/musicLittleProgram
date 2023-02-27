@@ -8,7 +8,7 @@
         <slot name="left"></slot>
       </view>
       <view class="left-default">
-        <van-icon class="icon" size="20px" name="arrow-left" />
+        <van-icon bindtap="returnNavigate" class="icon" size="20px" name="arrow-left" />
       </view>
     </view>
     <view class="center">

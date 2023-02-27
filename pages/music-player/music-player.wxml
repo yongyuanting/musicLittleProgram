@@ -15,7 +15,6 @@
         |
       </view>
     </block>
-
   </view>
 </nav-bar>
 
@@ -34,7 +33,7 @@
       </view>
     </view>
     <view class="lyric">
-      一句歌词一句歌词一句歌词一句歌词一句歌词一句歌词一句歌词一句歌词一句歌词一句歌词一句歌词
+      {{showLyric}}
     </view>
     <view class="proress">
       <slider class="slider" bindchanging="onSliderChanging" bindchange="onSliderChange" value="{{sliderValue}}" block-size="12"></slider>
@@ -53,12 +52,18 @@
     <view class="control">
       <image class="btn mode" src="/assets/images/player/play_order.png" mode="" />
       <image class="btn prev" src="/assets/images/player/play_prev.png" mode="" />
-      <image class="btn play" src="/assets/images/player/play_pause.png" mode="" />
+      <image bindtap="musicPauseOrPlay" class="btn play" src="/assets/images/player/play_{{isPlay?'pause':'resume'}}.png" mode="" />
       <image class="btn next" src="/assets/images/player/play_next.png" mode="" />
       <image class="btn menu" src="/assets/images/player/play_music.png" mode="" />
     </view>
   </swiper-item>
   <swiper-item>
-    歌词
+    <scroll-view class="lyric-list" scroll-y scroll-top="{{scrollTopHeight}}" scroll-with-animation>
+      <block wx:for="{{lyricInfos}}" wx:key="time">
+        <view class="item {{currentLyricIndex === index?' active':''}}" style="padding-top:{{index===0?(contentHeight/2-60):0}}px; padding-bottom: {{index===lyricInfos.length-1?(contentHeight/2+60):0}}px;">
+          {{item.text}}
+        </view>
+      </block>
+    </scroll-view>
   </swiper-item>
 </swiper>

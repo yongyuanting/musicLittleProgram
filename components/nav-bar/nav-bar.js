@@ -17,5 +17,12 @@ Component({
         statusHeight: app.globalData.statusHeight
       })
     }
+  },
+  methods: {
+    returnNavigate() {
+      // wx.InnerAudioContext.destroy()
+      // wx.onAudioInterruptionEnd()
+      wx.navigateBack()
+    }
   }
 })

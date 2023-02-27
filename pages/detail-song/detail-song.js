@@ -1,5 +1,6 @@
 // pages/detail-song/detail-song.js
 import recommendStore from "../../store/recommendStore"
+import playerStore from "../../store/playerListStore"
 import rankingStore from "../../store/rankingStore"
 import {
   getMusicPlayListDetail
@@ -61,6 +62,10 @@ Page({
     this.setData({
       songInfos: res.playlist
     })
+  },
+  // 共享数据
+  onSongItemTap() {
+    playerStore.setState("playSongList", this.data.songInfos.tracks)
   }
 
 })
