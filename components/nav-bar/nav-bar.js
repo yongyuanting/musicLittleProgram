@@ -22,7 +22,8 @@ Component({
     returnNavigate() {
       // wx.InnerAudioContext.destroy()
       // wx.onAudioInterruptionEnd()
-      wx.navigateBack()
+      // wx.navigateBack()
+      this.triggerEvent("leftClick")
     }
   }
 })

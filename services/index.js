@@ -1,26 +1,34 @@
-class YYTRequest{
-  constructor(baseUrl){
+class YYTRequest {
+  constructor(baseUrl) {
     this.baseUrl = baseUrl
   }
-  request(options){
-    const{url} = options
-    return new Promise((resolve,reject) => {
+  request(options) {
+    const {
+      url
+    } = options
+    return new Promise((resolve, reject) => {
       wx.request({
         ...options,
-        url:this.baseUrl+url,
-        success:(res)=>{
+        url: this.baseUrl + url,
+        success: (res) => {
           resolve(res.data)
         },
-        fail:reject
+        fail: reject
       })
     })
   }
-    get(options) {
-      return this.request({...options,method:"get"})
-    }
-    post(options) {
-      return this.request({...options,method:'post'})
-    }
+  get(options) {
+    return this.request({
+      ...options,
+      method: "get"
+    })
+  }
+  post(options) {
+    return this.request({
+      ...options,
+      method: 'post'
+    })
+  }
 }
 
 export const yytRequest = new YYTRequest("http://codercba.com:9002/")

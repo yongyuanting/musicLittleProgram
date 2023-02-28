@@ -4,6 +4,7 @@ import {
   getSongLyric
 } from "../../services/player"
 import {
+  collect,
   throttle
 } from 'underscore'
 
@@ -33,7 +34,10 @@ Page({
     isPlay: true,
     showLyric: "",
     currentLyricIndex: -1,
-    scrollTopHeight: 800
+    scrollTopHeight: 800,
+    playSongIndex: 0,
+    playSongList: [],
+    playModelIndex: 0 // 0 顺序播放，1单曲循环，2随机播放
   },
   onLoad(options) {
     // 0 获取设备信息
@@ -41,8 +45,18 @@ Page({
       statusHeight: app.globalData.statusHeight,
       contentHeight: app.globalData.swiperContentHeight
     })
+    this.initMusic(options.id)
+    // 5.监听是否在等待
+    audioContext.onWaiting(() => {
+      audioContext.pause()
+    })
+    // 6.获取store共享数据
+    playerStore.onStates(["playSongList", "playSongIndex"], this.getPlaySongListHandle)
+  },
+
+  initMusic(nowId) {
     // 1.获取传入的id
-    const id = options.id
+    const id = nowId
     this.setData({
       id: id
     })
@@ -101,12 +115,17 @@ Page({
         })
       }
     })
-    // 5.监听是否在等待
-    audioContext.onWaiting(() => {
-      audioContext.pause()
+    audioContext.onEnded(() => {
+      if (this.data.playModelIndex === 1) {
+        this.setData({
+          currentTime: 0
+        })
+        audioContext.play()
+        // audioContext.loop = true
+      } else {
+        this.changeNewSong()
+      }
     })
-    // 6.获取store共享数据
-    playerStore.onState("playSongList", this.getPlaySongListHandle)
   },
 
   updateProgress() {
@@ -137,7 +156,7 @@ Page({
     // console.log(event)
     // 1.获取点击滑块对应的值
     const value = event.detail.value
-    // 2.计算后，将currentTime设置
+    // 2.计算后，将currentTime设置    需要节流
     const currentTime = value / 100 * this.data.durationTime
     audioContext.seek(currentTime / 1000)
     this.setData({
@@ -146,30 +165,94 @@ Page({
       sliderValue: value
     })
     if (this.data.isPlay === true) {
-      console.log("进入可播放")
       audioContext.onCanplay(() => {
         audioContext.play()
       })
     } else {
-      console.log("进入不可aspiofjioasj播放")
       audioContext.pause()
     }
   },
+  // 点击上一首
+  onPrevBtnTap() {
+    this.changeNewSong(false)
+  },
+  // 点击下一首
+  onNextBtnTap() {
+    this.changeNewSong(true)
+  },
+  // 返回上一页
+  onNavBack() {
+    wx.navigateBack({
+      detail: 0
+    })
+  },
+  changeNewSong(isNext = true) {
+    // console.log("下一首")
+    let index = this.data.playSongIndex
+    switch (this.data.playModelIndex) {
+      case 0:
+      case 1:
+        isNext ? index++ : index--
+        if (index === this.data.playSongList.length) {
+          index = 0
+        }
+        if (index === -1) {
+          index = this.data.playSongList.length - 1
+        }
+        break
+      case 2:
+        let nowIndex = index
+        while (nowIndex === index) {
+          nowIndex = Math.floor(Math.random() * this.data.playSongList.length)
+        }
+        index = nowIndex
+        break
+    }
+
+    const newSong = this.data.playSongList[index]
+    // 保存最新的索引
+    playerStore.setState("playSongIndex", index)
+    if (this.data.isPlay === false) {
+      this.setData({
+        isPlay: true
+      })
+    }
+    this.setData({
+      currentSong: {}
+    })
+    this.initMusic(newSong.id)
+  },
   // 滑动，不点击进度条
-  onSliderChanging(event) {
+  // onSliderChanging(event) {
+  //   if (this.data.isPlay === false) {
+  //     audioContext.pause()
+  //   }
+  //   // 获取滑动的位置
+  //   const value = event.detail.value
+  //   // 根据当前的值，计算出对应的时间  需要节流
+  //   const currentTime = value / 100 * this.data.durationTime
+  //   this.setData({
+  //     currentTime
+  //   })
+  //   // 当前正在滑动
+  //   this.data.isSliderChange = true
+  // },
+
+  // 滑动，不点击进度条 节流
+  onSliderChanging: throttle(function (event) {
     if (this.data.isPlay === false) {
       audioContext.pause()
     }
     // 获取滑动的位置
     const value = event.detail.value
-    // 根据当前的值，计算出对应的时间
+    // 根据当前的值，计算出对应的时间  需要节流
     const currentTime = value / 100 * this.data.durationTime
     this.setData({
       currentTime
     })
     // 当前正在滑动
     this.data.isSliderChange = true
-  },
+  }, 100),
   // 暂停歌曲
   musicPauseOrPlay() {
     if (this.data.isPlay === true && !audioContext.paused) {
@@ -187,10 +270,32 @@ Page({
     }
   },
   // store共享数据
-  getPlaySongListHandle(value) {
-    console.log(value)
+  getPlaySongListHandle({
+    playSongList,
+    playSongIndex
+  }) {
+    // console.log(value)
+    if (playSongList) {
+      this.setData({
+        playSongList
+      })
+    }
+    if (playSongIndex !== undefined) {
+      this.setData({
+        playSongIndex
+      })
+    }
+  },
+  onModeBtnTap() {
+    let modeIndex = this.data.playModelIndex
+    modeIndex = modeIndex + 1
+    if (modeIndex === 3) modeIndex = 0
+    // this.data.playModelIndex = modeIndex
+    this.setData({
+      playModelIndex: modeIndex
+    })
   },
   onUnload() {
-    playerStore.offState("playSongList", this.getPlaySongListHandle)
+    playerStore.offStates(["playSongList", "playSongIndex"], this.getPlaySongListHandle)
   }
 })

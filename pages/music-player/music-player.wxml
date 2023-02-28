@@ -5,7 +5,7 @@
 <image class="bg-image" src="{{currentSong.al.picUrl}}" mode="aspectFill" />
 <view class="cover"></view>
 
-<nav-bar>
+<nav-bar bind:leftClick="onNavBack">
   <view class="tabs" slot="center">
     <block wx:for="{{pageTitles}}" wx:key="*this">
       <view bindtap="onSwiperClick" data-index="{{index}}" class="item {{currentPage === index?'active':''}}">
@@ -50,10 +50,12 @@
       </view>
     </view>
     <view class="control">
-      <image class="btn mode" src="/assets/images/player/play_order.png" mode="" />
-      <image class="btn prev" src="/assets/images/player/play_prev.png" mode="" />
+      <image wx:if="{{playModelIndex===0}}" class="btn mode" bindtap="onModeBtnTap" src="/assets/images/player/play_order.png" mode="" />
+      <image wx:if="{{playModelIndex===1}}" class="btn mode" bindtap="onModeBtnTap" src="/assets/images/player/play_repeat.png" mode="" />
+      <image wx:if="{{playModelIndex===2}}" class="btn mode" bindtap="onModeBtnTap" src="/assets/images/player/play_random.png" mode="" />
+      <image class="btn prev" bindtap="onPrevBtnTap" src="/assets/images/player/play_prev.png" mode="" />
       <image bindtap="musicPauseOrPlay" class="btn play" src="/assets/images/player/play_{{isPlay?'pause':'resume'}}.png" mode="" />
-      <image class="btn next" src="/assets/images/player/play_next.png" mode="" />
+      <image class="btn next" bindtap="onNextBtnTap" src="/assets/images/player/play_next.png" mode="" />
       <image class="btn menu" src="/assets/images/player/play_music.png" mode="" />
     </view>
   </swiper-item>

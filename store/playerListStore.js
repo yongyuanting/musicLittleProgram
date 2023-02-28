@@ -4,7 +4,8 @@ import {
 
 const playerStore = new HYEventStore({
   state: {
-    palySongList: {}
+    palySongList: [],
+    playSongIndex: 0
   }
 })
 

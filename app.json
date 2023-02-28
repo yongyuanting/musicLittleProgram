@@ -15,8 +15,7 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/home-music/main-music",
         "text": "音乐",
         "iconPath": "assets/images/tabbar/music_normal.png",

@@ -163,9 +163,11 @@ Page({
   onUnload() {
     recommendStore.offState("recommendSongs", this.handleRrcommendSong)
   },
-  onSongItemTap() {
+  onSongItemTap(event) {
+    const index = event.currentTarget.dataset.index
     // console.log("获取歌曲列表", this.data.recommendSongs)
     playerStore.setState("playSongList", this.data.recommendSongs)
+    playerStore.setState("playSongIndex", index)
   }
 
 })
