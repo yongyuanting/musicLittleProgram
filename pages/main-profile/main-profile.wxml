@@ -1,0 +1,20 @@
+<!--pages/main-profile/main-profile.wxml-->
+<!-- 头像和名称 -->
+<view class="userInfo section" bindtap="onUserInfoTap">
+  <image class="avatar" src="{{isLogin?userInfo.avatarUrl:'/assets/images/profile/suijiyonghu.png'}}" mode="" />
+  <view class="nickname">
+    {{isLogin?userInfo.nickName:'未登录'}}
+  </view>
+</view>
+
+<!-- tabs -->
+<view class="section tabs">
+  <block wx:for="{{tabs}}" wx:key="like">
+    <view class="item">
+      <image class="icon" src="/assets/images/profile/{{item.type}}.png" mode="" />
+      <view class="name">
+        {{item.name}}
+      </view>
+    </view>
+  </block>
+</view>

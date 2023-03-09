@@ -12,4 +12,5 @@
       {{itemData.ar[0].name}}
     </view>
   </view>
+  <van-icon catchtap="onMoreTap" class="more-item" name="ellipsis" />
 </view>

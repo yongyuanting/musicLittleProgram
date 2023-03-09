@@ -16,5 +16,9 @@ App({
         this.globalData.swiperContentHeight = res.screenHeight - res.statusBarHeight - 44
       }
     })
+    // 对云开发能力初始化
+    wx.cloud.init({
+      env: "cloud1-7gijnryg2f3c62b2"
+    })
   }
 })
