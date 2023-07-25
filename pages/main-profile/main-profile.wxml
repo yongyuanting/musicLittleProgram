@@ -10,7 +10,7 @@
 <!-- tabs -->
 <view class="section tabs">
   <block wx:for="{{tabs}}" wx:key="like">
-    <view class="item">
+    <view class="item" bindtap="onTabItemTap" data-item="{{item}}">
       <image class="icon" src="/assets/images/profile/{{item.type}}.png" mode="" />
       <view class="name">
         {{item.name}}
@@ -18,3 +18,25 @@
     </view>
   </block>
 </view>
+
+<!-- 我的歌单 -->
+<view class="mine-menu">
+  <area-header title="我的歌单" hasMore="{{false}}"></area-header>
+  <view class="section content">
+    <view class="header">
+      <view class="title">
+        创建歌单
+      </view>
+      <van-icon name="plus" bindtap="onPlusTap" />
+    </view>
+    <view class="list">
+      <block wx:for="{{menuList}}" wx:key="name">
+        <menu-item-v2 itemData="{{item}}"></menu-item-v2>
+      </block>
+    </view>
+  </view>
+</view>
+
+<van-dialog class="dialog" use-slot title="创建歌单" show="{{ isShowDialog }}" show-cancel-button bind:confirm="onConfirmTap">
+  <input type="text" placeholder="请输入歌单的名称" model:value="{{menuName}}" class="input" />
+</van-dialog>

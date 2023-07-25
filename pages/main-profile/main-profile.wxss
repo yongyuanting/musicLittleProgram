@@ -9,6 +9,7 @@ page {
   background-color: #fff;
   border-radius: 10rpx;
   padding: 30rpx;
+  margin-bottom: 30rpx;
 }
 
 /* 用户信息 */
@@ -49,4 +50,24 @@ page {
 .tabs .item .name {
   font-size: 24rpx;
   margin-top: 20rpx;
+}
+
+/* 歌单样式 */
+
+.mine-menu .content .header {
+  display: flex;
+  font-size: 24rpx;
+  justify-content: space-between;
+  align-items: center;
+  color: #888;
+}
+
+.dialog .input {
+  border: 1px solid #eee;
+  border-radius: 6rpx;
+  font-size: 28rpx;
+  height: 70rpx;
+  padding: 0 16rpx;
+  line-height: 70rpx;
+  margin: 30rpx;
 }

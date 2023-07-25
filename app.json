@@ -9,6 +9,17 @@
     "pages/music-player/music-player",
     "pages/main-profile/main-profile"
   ],
+  "subpackages": [{
+    "root": "packageVideo",
+    "pages": [
+      "pages/detail_video/detail_video"
+    ]
+  }, {
+    "root": "packagePlayer",
+    "pages": [
+      "pages/music-player/music-player"
+    ]
+  }],
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",

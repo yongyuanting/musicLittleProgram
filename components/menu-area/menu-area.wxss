@@ -5,6 +5,10 @@
   white-space: nowrap;
 }
 
+.scroll-list ::-webkit-scrollbar {
+  display: none;
+}
+
 .scroll-list .item {
   display: inline-block;
   margin-left: 24rpx;

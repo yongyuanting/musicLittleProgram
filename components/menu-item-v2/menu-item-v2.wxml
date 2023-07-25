@@ -1,0 +1,14 @@
+<!--components/menu-item-v2/menu-item-v2.wxml-->
+<view class="item">
+  <image class="icon" wx:if="{{itemData.songList[0]}}" src="{{itemData.songList[0].al.picUrl}}" mode="" />
+  <image wx:else="" class="icon" src="/assets/images/profile/yinle.png" mode="" />
+  <view class="info">
+    <view class="name">
+      {{itemData.name}}
+    </view>
+    <view class="count">
+      {{itemData.songList.length}}首
+    </view>
+  </view>
+  <van-icon class="delete-icon" catchtap="onDeleteTap" name="delete-o" />
+</view>

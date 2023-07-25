@@ -32,7 +32,9 @@ Page({
     recommendMenuList: [],
     // 巅峰榜数据
     rankingInfo: {},
-    isRankingData: false
+    isRankingData: false,
+    currentSong: {},
+    isPlaying: false
   },
   // 监听点击搜索框
   onClickInput() {
@@ -51,7 +53,7 @@ Page({
     rankingStore.onState("originRanking", this.handleOriginRanking)
     rankingStore.onState("upRanking", this.handleUpRanking)
     rankingStore.dispatch("fetchRankingDataAction")
-
+    playerStore.onStates(["currentSong", "isPlaying"], this.handlePlayInfos)
     this.fetchHotSongMenuList()
     //  获取屏幕尺寸
     this.setData({
@@ -162,12 +164,36 @@ Page({
 
   onUnload() {
     recommendStore.offState("recommendSongs", this.handleRrcommendSong)
+    playerStore.offStates(["currentSong", "isPlaying"], this.handlePlayInfos)
   },
   onSongItemTap(event) {
     const index = event.currentTarget.dataset.index
     // console.log("获取歌曲列表", this.data.recommendSongs)
     playerStore.setState("playSongList", this.data.recommendSongs)
     playerStore.setState("playSongIndex", index)
+  },
+  handlePlayInfos({
+    currentSong,
+    isPlaying
+  }) {
+    if (currentSong) {
+      this.setData({
+        currentSong
+      })
+    }
+    if (isPlaying !== undefined) {
+      this.setData({
+        isPlaying
+      })
+    }
+  },
+  onPlayOrPauseTap() {
+    playerStore.dispatch("playMusicStatusAction")
+  },
+  onAlbumTap() {
+    wx.navigateTo({
+      url: '/packagePlayer/pages/music-player/music-player',
+    })
   }
 
 })
